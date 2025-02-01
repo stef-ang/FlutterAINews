@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Daily Top News',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
@@ -52,11 +52,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> fetchArticles() async {
-    final String? apiKey = dotenv.env['API_KEY'];
+    final String? apiKey = dotenv.env['NEWS_API_KEY'];
     if (apiKey == null || apiKey.isEmpty) {
       throw Exception("API Key is missing!");
     }
-    log('check apiKey $apiKey');
 
     const String apiUrl = 'https://newsapi.org/v2/top-headlines';
     const String country = 'us';
@@ -137,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  NewsWebView(url: item.url!)));
+                                  NewsWebView(article: item)));
                     }
                   },
                 );
